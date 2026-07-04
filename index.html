@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hamza El Jarzini – Portfolio</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Couleurs personnalisées (fond sombre) -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primaryDark: '#0B0F19',   // fond principal sombre
+            accent: '#6366F1'         // indigo doux pour les états actifs / hover
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- JS minimal pour le menu mobile et le drawer -->
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('mobile-menu-btn');
+      const panel = document.getElementById('mobile-drawer');
+      btn?.addEventListener('click', () => panel.classList.toggle('hidden'));
+      // Fermer le drawer quand on clique sur un lien
+      panel?.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => panel.classList.add('hidden'));
+      });
+    });
+  </script>
+
+  <style>
+    [x-cloak] {
+      display: none !important;
+    }
+
+    /* Cache la scrollbar pour un effet plus épuré, tout en gardant le scroll actif */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0B0F19;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #374151;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4B5563;
+    }
+  </style>
+</head>
+
+<body class="bg-primaryDark text-gray-100 font-sans antialiased">
+
+  <!-- ==================== NAVBAR HORIZONTALE FIXE ==================== -->
+  <!-- ==================== NAVBAR HORIZONTALE FIXE ==================== -->
+  <header class="fixed inset-x-0 top-0 z-20 bg-primaryDark border-b border-gray-800 backdrop-blur-md bg-opacity-90">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
+
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <div class="w-8 h-8 flex items-center justify-center rounded-full bg-indigo-600 text-white font-bold">HE</div>
+      </div>
+
+      <!-- Section Droite : Navigation + Actions (Langues & Thème) -->
+      <div class="flex items-center gap-4 md:gap-6">
+
+        <!-- Navigation Desktop -->
+        <nav class="hidden md:block">
+          <ul class="flex space-x-6 text-sm font-medium text-gray-400">
+            <li><a href="#home" class="hover:text-white transition">Accueil</a></li>
+            <li><a href="#about" class="hover:text-white transition">À propos</a></li>
+            <li><a href="#skills" class="hover:text-white transition">Compétences</a></li>
+            <li><a href="#experience" class="hover:text-white transition">Parcours</a></li>
+            <li><a href="#education-certifications" class="hover:text-white transition">Formation & Certifications</a></li>
+            <li><a href="#hobbies" class="hover:text-white transition">Hobbies</a></li>
+            <li><a href="#download-cv" class="hover:text-white transition">CV</a></li>
+            <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- Séparateur vertical (Desktop uniquement) -->
+        <div class="hidden md:block w-px h-5 bg-gray-700"></div>
+
+        <!-- Sélecteur de Langue (FR / EN) -->
+        <div class="flex items-center space-x-2 text-sm font-bold text-gray-500">
+          <button class="text-white hover:text-blue-400 transition cursor-pointer" aria-label="Passer en Français">FR</button>
+          <span class="font-normal text-gray-700">|</span>
+          <button class="hover:text-white transition cursor-pointer" aria-label="Switch to English">EN</button>
+        </div>
+
+        <!-- Toggle Thème (Clair / Sombre) -->
+        <button id="theme-toggle" class="text-gray-400 hover:text-yellow-400 transition focus:outline-none" aria-label="Changer le thème">
+          <!-- Icône Lune (affichée par défaut pour le mode sombre) -->
+          <svg id="theme-toggle-dark-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <!-- Icône Soleil (cachée par défaut) -->
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 4.22a1 1 0 011.415 0l.859.859a1 1 0 11-1.414 1.414l-.86-.86a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.78a1 1 0 010 1.415l-.859.859a1 1 0 11-1.414-1.414l.86-.86a1 1 0 011.414 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.78 15.78a1 1 0 01-1.415 0l-.859.859a1 1 0 11-1.414-1.414l.86-.86a1 1 0 011.414 0zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zM5.78 4.22a1 1 0 010 1.415l-.859.859a1 1 0 11-1.414-1.414l.86-.86a1 1 0 011.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+
+        <!-- Bouton Menu Mobile -->
+        <button id="mobile-menu-btn" class="text-gray-400 hover:text-gray-200 focus:outline-none md:hidden" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MOBILE DRAWER ==================== -->
+  <nav id="mobile-drawer"
+    class="hidden md:hidden fixed inset-0 bg-primaryDark bg-opacity-95 backdrop-blur-sm pt-24 p-6 z-10">
+    <ul class="space-y-6 text-center text-xl text-gray-300">
+      <li><a href="#home" class="block hover:text-white transition">Accueil</a></li>
+      <li><a href="#about" class="block hover:text-white transition">À propos</a></li>
+      <li><a href="#skills" class="block hover:text-white transition">Compétences</a></li>
+      <li><a href="#experience" class="block hover:text-white transition">Parcours</a></li>
+      <li><a href="#hobbies" class="block hover:text-white transition">Hobbies &amp; Intérêts</a></li>
+      <li><a href="#contact" class="block hover:text-white transition">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <!-- Suppression des marges globales pour laisser chaque section gérer son espace -->
+  <main class="w-full">
+
+    <!-- ===== ACCUEIL (hero pleine page) ===== -->
+    <section id="home"
+      class="min-h-screen flex flex-col items-center justify-center text-center px-4 md:px-8 relative pt-20">
+      <p class="text-gray-400 text-lg md:text-xl mb-2">Bonjour, je suis</p>
+
+      <!-- Titre décoré avec badge -->
+      <div class="flex items-center justify-center gap-3 mb-6 flex-wrap">
+        <h1
+          class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 tracking-tight">
+          Hamza El Jarzini
+        </h1>
+        <!-- Badge vérifié (style Twitter/LinkedIn) -->
+        <svg class="w-8 h-8 md:w-10 md:h-10 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+        </svg>
+      </div>
+
+      <!-- Sous-titre -->
+      <h2 class="text-xl md:text-2xl font-bold text-white mb-8 max-w-4xl leading-relaxed">
+        Développeur Full-Stack Senior Java • Angular | Spring Boot 3 • Microservices • Apache Kafka | DevOps (Docker,
+        K8s, CI/CD)
+      </h2>
+
+      <!-- Description -->
+      <p class="text-lg md:text-xl text-gray-400 max-w-3xl mb-12 leading-relaxed">
+        Passionné par le code depuis 2003, je construis des systèmes backend avec Java/Spring Boot et des frontends
+        modernes avec React et Angular, avec une attention particulière à l'architecture propre et à la qualité
+        logicielle.
+      </p>
+
+      <!-- Bouton d'action -->
+      <a href="#contact"
+        class="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white text-lg font-semibold rounded-lg transition duration-300 shadow-lg shadow-blue-500/30 flex flex-col items-center gap-1 group">
+        Me contacter
+      </a>
+
+      <!-- Petite flèche animée vers le bas -->
+      <div class="absolute bottom-10 animate-bounce text-gray-500 hidden md:block">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===== À PROPOS ===== -->
+    <!-- ===== À PROPOS ===== -->
+    <section id="about"
+      class="min-h-screen flex flex-col justify-center px-4 md:px-12 lg:px-24 max-w-6xl mx-auto pt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-10 text-center md:text-left">À propos</h2>
+
+      <div class="flex flex-col md:flex-row gap-10 md:items-stretch">
+
+        <div class="w-full md:w-1/2 lg:w-5/12 flex-shrink-0">
+          <img src="src\assets\hamza_v1.png" alt="Hamza El Jarzini"
+            class="w-full h-full rounded-2xl shadow-xl border border-gray-700 object-cover" />
+        </div>
+
+        <div class="w-full md:w-1/2 lg:w-7/12 space-y-6 text-gray-300 text-lg leading-relaxed py-2">
+          <p>
+            Développeur Full-Stack Senior passionné par la résolution de problèmes et l'architecture logicielle. Fort de
+            plus de 6 ans d'expérience, je suis spécialisé en Java, Angular, Spring Boot et Microservices. Je suis
+            expert en développement de services web hautement industrialisés, avec une forte orientation Agile/Scrum,
+            l'automatisation (tests, CI/CD) et le déploiement sur Kubernetes.
+          </p>
+
+          <p>
+            Mon approche privilégie le code propre, la conception rigoureuse (DDD, Architecture Hexagonale) et la
+            performance. Pour appuyer cette démarche de qualité.
+          </p>
+
+          <p>
+            Je souhaite aujourd'hui intégrer une équipe structurée pour travailler sur des problématiques d'architecture
+            complexes et continuer à progresser dans un environnement exigeant.
+          </p>
+
+          <blockquote class="border-l-4 border-blue-500 pl-5 my-8">
+            <p class="text-xl font-bold italic text-white mb-2">"What I cannot create, I do not understand."</p>
+            <footer class="text-gray-400">— Richard Feynman</footer>
+          </blockquote>
+
+          <div class="flex flex-col sm:flex-row gap-8 pt-4 border-t border-gray-800/50">
+
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span class="text-gray-300 text-base">Basé à Casablanca / Rabat,<br />Maroc</span>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-gray-300 text-base">Disponible (Sur site / Hybride /<br />Remote)</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== COMPÉTENCES ===== -->
+    <section id="skills" class="py-20 px-4 md:px-12 lg:px-24 max-w-6xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-10 text-center md:text-left">Compétences Techniques</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-cyan-500/50 transition-colors duration-300 group">
+          <h3 class="text-xl font-semibold text-cyan-400 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01">
+              </path>
+            </svg>
+            Backend
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="bg-cyan-900/30 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-700/50 font-medium hover:scale-105 transition-transform cursor-default">Java
+              (8 à 21)</span>
+            <span
+              class="bg-cyan-900/30 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-700/50 font-medium hover:scale-105 transition-transform cursor-default">JEE</span>
+            <span
+              class="bg-cyan-900/30 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-700/50 font-medium hover:scale-105 transition-transform cursor-default">Spring
+              Boot</span>
+            <span
+              class="bg-cyan-900/30 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-700/50 font-medium hover:scale-105 transition-transform cursor-default">Spring
+              Batch</span>
+            <span
+              class="bg-cyan-900/30 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-700/50 font-medium hover:scale-105 transition-transform cursor-default">Apache
+              Kafka</span>
+            <span
+              class="bg-cyan-900/30 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-700/50 font-medium hover:scale-105 transition-transform cursor-default">RabbitMQ</span>
+            <span
+              class="bg-cyan-900/30 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-700/50 font-medium hover:scale-105 transition-transform cursor-default">JUnit</span>
+          </div>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-rose-500/50 transition-colors duration-300 group">
+          <h3 class="text-xl font-semibold text-rose-400 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+              </path>
+            </svg>
+            Frontend
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="bg-rose-900/30 text-rose-300 px-3 py-1 rounded-full text-sm border border-rose-700/50 font-medium hover:scale-105 transition-transform cursor-default">Angular
+              16+</span>
+            <span
+              class="bg-rose-900/30 text-rose-300 px-3 py-1 rounded-full text-sm border border-rose-700/50 font-medium hover:scale-105 transition-transform cursor-default">TypeScript</span>
+            <span
+              class="bg-rose-900/30 text-rose-300 px-3 py-1 rounded-full text-sm border border-rose-700/50 font-medium hover:scale-105 transition-transform cursor-default">HTML</span>
+            <span
+              class="bg-rose-900/30 text-rose-300 px-3 py-1 rounded-full text-sm border border-rose-700/50 font-medium hover:scale-105 transition-transform cursor-default">CSS</span>
+          </div>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-purple-500/50 transition-colors duration-300 group">
+          <h3 class="text-xl font-semibold text-purple-400 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+              </path>
+            </svg>
+            Architecture
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="bg-purple-900/30 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-700/50 font-medium hover:scale-105 transition-transform cursor-default">Microservices</span>
+            <span
+              class="bg-purple-900/30 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-700/50 font-medium hover:scale-105 transition-transform cursor-default">Spring
+              Cloud</span>
+            <span
+              class="bg-purple-900/30 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-700/50 font-medium hover:scale-105 transition-transform cursor-default">Spring
+              WebFlux</span>
+            <span
+              class="bg-purple-900/30 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-700/50 font-medium hover:scale-105 transition-transform cursor-default">RESTful
+              APIs</span>
+            <span
+              class="bg-purple-900/30 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-700/50 font-medium hover:scale-105 transition-transform cursor-default">REST
+              / SOAP</span>
+          </div>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-teal-500/50 transition-colors duration-300 group">
+          <h3 class="text-xl font-semibold text-teal-400 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+              </path>
+            </svg>
+            Sécurité & Authentification
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="bg-teal-900/30 text-teal-300 px-3 py-1 rounded-full text-sm border border-teal-700/50 font-medium hover:scale-105 transition-transform cursor-default">Spring
+              Security</span>
+            <span
+              class="bg-teal-900/30 text-teal-300 px-3 py-1 rounded-full text-sm border border-teal-700/50 font-medium hover:scale-105 transition-transform cursor-default">Keycloak</span>
+            <span
+              class="bg-teal-900/30 text-teal-300 px-3 py-1 rounded-full text-sm border border-teal-700/50 font-medium hover:scale-105 transition-transform cursor-default">OAuth2
+              / JWT</span>
+          </div>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-emerald-500/50 transition-colors duration-300 group">
+          <h3 class="text-xl font-semibold text-emerald-400 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4">
+              </path>
+            </svg>
+            Bases de Données
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="bg-emerald-900/30 text-emerald-300 px-3 py-1 rounded-full text-sm border border-emerald-700/50 font-medium hover:scale-105 transition-transform cursor-default">Oracle</span>
+            <span
+              class="bg-emerald-900/30 text-emerald-300 px-3 py-1 rounded-full text-sm border border-emerald-700/50 font-medium hover:scale-105 transition-transform cursor-default">PostgreSQL</span>
+            <span
+              class="bg-emerald-900/30 text-emerald-300 px-3 py-1 rounded-full text-sm border border-emerald-700/50 font-medium hover:scale-105 transition-transform cursor-default">MongoDB</span>
+            <span
+              class="bg-emerald-900/30 text-emerald-300 px-3 py-1 rounded-full text-sm border border-emerald-700/50 font-medium hover:scale-105 transition-transform cursor-default">SQL
+              Server</span>
+            <span
+              class="bg-emerald-900/30 text-emerald-300 px-3 py-1 rounded-full text-sm border border-emerald-700/50 font-medium hover:scale-105 transition-transform cursor-default">SQL</span>
+          </div>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-orange-500/50 transition-colors duration-300 group">
+          <h3 class="text-xl font-semibold text-orange-400 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+              </path>
+            </svg>
+            Monitoring & Supervision
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="bg-orange-900/30 text-orange-300 px-3 py-1 rounded-full text-sm border border-orange-700/50 font-medium hover:scale-105 transition-transform cursor-default">Dynatrace</span>
+            <span
+              class="bg-orange-900/30 text-orange-300 px-3 py-1 rounded-full text-sm border border-orange-700/50 font-medium hover:scale-105 transition-transform cursor-default">ELK</span>
+            <span
+              class="bg-orange-900/30 text-orange-300 px-3 py-1 rounded-full text-sm border border-orange-700/50 font-medium hover:scale-105 transition-transform cursor-default">Grafana</span>
+          </div>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-amber-500/50 transition-colors duration-300 group lg:col-span-2">
+          <h3 class="text-xl font-semibold text-amber-400 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+            </svg>
+            Cloud, Outils & Environnements
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="bg-amber-900/40 text-amber-300 px-3 py-1 rounded-full text-sm border border-amber-500/50 font-bold hover:scale-105 transition-transform cursor-default">AWS</span>
+            <span
+              class="bg-amber-900/40 text-amber-300 px-3 py-1 rounded-full text-sm border border-amber-500/50 font-bold hover:scale-105 transition-transform cursor-default">GCP</span>
+            <span
+              class="bg-amber-900/40 text-amber-300 px-3 py-1 rounded-full text-sm border border-amber-500/50 font-bold hover:scale-105 transition-transform cursor-default">Docker</span>
+            <span
+              class="bg-amber-900/40 text-amber-300 px-3 py-1 rounded-full text-sm border border-amber-500/50 font-bold hover:scale-105 transition-transform cursor-default">Kubernetes</span>
+            <span
+              class="bg-amber-900/20 text-amber-200 px-3 py-1 rounded-full text-sm border border-amber-700/30 font-medium hover:scale-105 transition-transform cursor-default">Jenkins</span>
+            <span
+              class="bg-amber-900/20 text-amber-200 px-3 py-1 rounded-full text-sm border border-amber-700/30 font-medium hover:scale-105 transition-transform cursor-default">GitLab</span>
+            <span
+              class="bg-amber-900/20 text-amber-200 px-3 py-1 rounded-full text-sm border border-amber-700/30 font-medium hover:scale-105 transition-transform cursor-default">Git</span>
+            <span
+              class="bg-amber-900/20 text-amber-200 px-3 py-1 rounded-full text-sm border border-amber-700/30 font-medium hover:scale-105 transition-transform cursor-default">SVN</span>
+            <span
+              class="bg-amber-900/20 text-amber-200 px-3 py-1 rounded-full text-sm border border-amber-700/30 font-medium hover:scale-105 transition-transform cursor-default">S3</span>
+            <span
+              class="bg-amber-900/20 text-amber-200 px-3 py-1 rounded-full text-sm border border-amber-700/30 font-medium hover:scale-105 transition-transform cursor-default">Eclipse</span>
+          </div>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-indigo-500/50 transition-colors duration-300 group">
+          <h3 class="text-xl font-semibold text-indigo-400 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+              </path>
+            </svg>
+            Méthodologies
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="bg-indigo-900/30 text-indigo-300 px-3 py-1 rounded-full text-sm border border-indigo-700/50 font-medium hover:scale-105 transition-transform cursor-default">Agile
+              / Scrum</span>
+            <span
+              class="bg-indigo-900/30 text-indigo-300 px-3 py-1 rounded-full text-sm border border-indigo-700/50 font-medium hover:scale-105 transition-transform cursor-default">DevOps</span>
+            <span
+              class="bg-indigo-900/30 text-indigo-300 px-3 py-1 rounded-full text-sm border border-indigo-700/50 font-medium hover:scale-105 transition-transform cursor-default">TDD
+              / DDD</span>
+            <span
+              class="bg-indigo-900/30 text-indigo-300 px-3 py-1 rounded-full text-sm border border-indigo-700/50 font-medium hover:scale-105 transition-transform cursor-default">UML</span>
+            <span
+              class="bg-indigo-900/30 text-indigo-300 px-3 py-1 rounded-full text-sm border border-indigo-700/50 font-medium hover:scale-105 transition-transform cursor-default">JIRA
+              / Confluence</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== PROJETS ===== -->
+
+
+    <!-- ===== PARCOURS ===== -->
+    <section id="experience"
+      class="min-h-screen flex flex-col justify-center px-4 md:px-12 lg:px-24 max-w-4xl mx-auto pt-20 py-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-12 text-center md:text-left">Parcours professionnel</h2>
+
+      <div class="relative border-l-2 border-gray-700 ml-4 md:ml-0">
+
+        <article class="mb-14 ml-8 relative">
+          <span
+            class="absolute -left-10 flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 ring-4 ring-gray-900"></span>
+          <h3 class="text-2xl font-semibold text-white">Développeur Full‑Stack Senior / Consultant Intégration (Client :
+            APICIL)</h3>
+          <p class="text-sm text-blue-400 font-medium mt-1 mb-4">02/2025 – Aujourd’hui</p>
+
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Java 17</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Spring Boot</span>
+
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Spring
+              WebFlux</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Apache Kafka</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Kubernetes</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">PostgreSQL</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Angular</span>
+          </div>
+
+          <p class="text-gray-300 leading-relaxed">
+            Conception et développement de microservices découplés (Architecture Hexagonale, DDD) pour ingérer les flux
+            métiers d'adhésion. Validation de la conformité des données en temps réel et automatisation des
+            interconnexions avec les outils de gestion. Déploiement et administration sur cluster Kubernetes.
+          </p>
+        </article>
+
+        <article class="mb-14 ml-8 relative">
+          <span
+            class="absolute -left-10 flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 ring-4 ring-gray-900"></span>
+          <h3 class="text-2xl font-semibold text-white">Développeur Full‑Stack / Automatisation – RAM Maroc</h3>
+          <p class="text-sm text-blue-400 font-medium mt-1 mb-4">11/2023 – 01/2025</p>
+
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Java 17</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Spring Boot
+              3</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">SAP</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">OpenAI API</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">n8n</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">GitLab CI/CD</span>
+          </div>
+
+          <p class="text-gray-300 leading-relaxed">
+            Automatisation des processus métiers internes via des workflows dynamiques intelligents et intégration de
+            l'IA (OpenAI). Orchestration de bout en bout des applications critiques et mise en place de flux de données
+            en temps réel pour optimiser les opérations internes de la compagnie aérienne.
+          </p>
+        </article>
+
+        <article class="ml-8 relative">
+          <span
+            class="absolute -left-10 flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 ring-4 ring-gray-900"></span>
+          <h3 class="text-2xl font-semibold text-white">Développeur Full‑Stack – Winu Consulting (Start-up)</h3>
+          <p class="text-sm text-blue-400 font-medium mt-1 mb-4">09/2020 – 10/2023</p>
+
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Java / Spring
+              Boot</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Angular</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">React JS</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Ionic</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Keycloak</span>
+            <span class="bg-gray-800 text-gray-300 text-xs px-2 py-1 rounded border border-gray-700">Agile /
+              Scrum</span>
+          </div>
+
+          <p class="text-gray-300 leading-relaxed mb-3">
+            Au sein de cette start-up technologique dynamique, j'ai piloté l'architecture et le développement
+            "from-scratch" de plusieurs produits digitaux d'envergure, en garantissant les bonnes pratiques (Clean Code,
+            CI/CD) :
+          </p>
+
+          <ul class="list-none space-y-2 text-gray-400 text-sm">
+            <li class="flex items-start">
+              <span class="text-blue-500 mr-2 mt-1">▹</span>
+              <span><strong>Plateforme E-commerce Web & Mobile :</strong> Conception d'une solution complète (Angular /
+                Ionic) connectée à un back-end Spring Boot. Mise en place des workflows de paiement, gestion de
+                catalogue et sécurisation stricte des accès via Keycloak.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-blue-500 mr-2 mt-1">▹</span>
+              <span><strong>Portail de Gestion Interne (ERP) :</strong> Création de modules dynamiques (React JS) et
+                d'APIs REST performantes. Modélisation complexe des bases de données relationnelles pour gérer la
+                facturation et les ressources internes.</span>
+            </li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="education-certifications" class="py-20 px-4 md:px-12 lg:px-24 max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10 flex items-center gap-3">
+            <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
+              <path
+                d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z">
+              </path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222">
+              </path>
+            </svg>
+            Formation
+          </h2>
+
+          <div class="relative border-l-2 border-gray-700 ml-4 md:ml-2">
+
+            <article class="mb-10 ml-8 relative">
+              <span
+                class="absolute -left-[41px] flex items-center justify-center w-5 h-5 rounded-full bg-blue-500 ring-4 ring-gray-900 mt-1"></span>
+              <h3 class="text-xl font-bold text-white leading-tight">Master en Informatique et Ingénierie des Systèmes
+                Complexes</h3>
+              <p class="text-sm text-blue-400 font-medium mt-1 mb-2">Jan 2021 – Déc 2022</p>
+              <p class="text-gray-400 text-sm">Faculté des Sciences et Techniques (FSTE), Errachidia</p>
+            </article>
+
+            <article class="mb-10 ml-8 relative">
+              <span
+                class="absolute -left-[41px] flex items-center justify-center w-5 h-5 rounded-full bg-gray-600 ring-4 ring-gray-900 mt-1"></span>
+              <h3 class="text-xl font-bold text-gray-200 leading-tight">Licence en Sciences et Techniques (Génie
+                Logiciel)</h3>
+              <p class="text-sm text-gray-400 font-medium mt-1 mb-2">Sep 2020 – Sep 2021</p>
+              <p class="text-gray-400 text-sm">Faculté des Sciences et Techniques (FSTE), Errachidia</p>
+            </article>
+
+            <article class="ml-8 relative">
+              <span
+                class="absolute -left-[41px] flex items-center justify-center w-5 h-5 rounded-full bg-gray-600 ring-4 ring-gray-900 mt-1"></span>
+              <h3 class="text-xl font-bold text-gray-200 leading-tight">Baccalauréat Sciences Physiques</h3>
+              <p class="text-sm text-gray-400 font-medium mt-1 mb-2">Sep 2016 – Sep 2017</p>
+              <p class="text-gray-400 text-sm">Lycée Hassan II</p>
+            </article>
+
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10 flex items-center gap-3">
+            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+              </path>
+            </svg>
+            Certifications
+          </h2>
+
+          <div
+            class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-amber-500/30 p-8 rounded-2xl relative overflow-hidden group hover:border-amber-500/60 hover:-translate-y-1 transition-all duration-300 shadow-lg">
+
+            <div
+              class="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-all duration-500">
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-start gap-6 relative z-10">
+              <div
+                class="w-16 h-16 rounded-2xl bg-amber-900/30 flex items-center justify-center border border-amber-700/50 flex-shrink-0 shadow-inner">
+                <svg class="w-8 h-8 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 2a8 8 0 100 16 8 8 0 000-16zm3.707 9.293a1 1 0 01-1.414 1.414L10 10.414l-2.293 2.293a1 1 0 01-1.414-1.414l3-3a1 1 0 011.414 0l3 3z"
+                    clip-rule="evenodd"></path>
+                  <path d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"></path>
+                </svg>
+              </div>
+
+              <div>
+                <h3 class="text-2xl font-bold text-white mb-1">Spring Boot Certified Developer</h3>
+                <p class="text-amber-400 font-semibold mb-4 text-lg">VMware / Tanzu</p>
+                <p class="text-gray-400 text-sm leading-relaxed mb-5">
+                  Certification officielle validant une expertise avancée sur le framework Spring Boot. Maîtrise de la
+                  configuration, de la sécurité, de la conception d'APIs REST et du développement d'architectures
+                  robustes.
+                </p>
+
+                <span
+                  class="inline-flex items-center gap-2 px-3 py-1 bg-gray-800/80 border border-gray-700 rounded-full text-xs font-medium text-gray-300">
+                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                  Obtenue en 02/2024
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- ===== HOBBIES ===== -->
+
+    <section id="hobbies" class="py-20 px-4 md:px-12 lg:px-24 max-w-7xl mx-auto">
+
+      <div class="text-center mb-14">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">En dehors du code</h2>
+        <p class="text-gray-400 text-lg">Quelques choses qui me tiennent à cœur en dehors du travail.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-gray-600 transition-colors duration-300 flex flex-col">
+          <div class="text-4xl mb-5">⚔️</div>
+          <h3 class="text-lg font-bold text-white mb-1 leading-tight">Warhammer & Peinture de Figurines</h3>
+          <span class="text-blue-500 text-sm font-medium mb-4">Tabletop Wargames</span>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Un hobby à part entière : composer ses listes d'armées, assembler, peindre ses figurines et les affronter
+            sur table. Je joue et peins depuis des années, c'est un univers dans lequel on ne s'ennuie jamais.
+          </p>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-gray-600 transition-colors duration-300 flex flex-col">
+          <div class="text-4xl mb-5">♟️</div>
+          <h3 class="text-lg font-bold text-white mb-1 leading-tight">Échecs & Jeux de Société</h3>
+          <span class="text-blue-500 text-sm font-medium mb-4">Stratégie & Bonne Compagnie</span>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Les échecs sont une passion depuis l'enfance, j'aime la profondeur infinie du jeu et le fait qu'on n'arrête
+            jamais d'apprendre. J'apprécie aussi les jeux de société en général, avant tout un moment de partage et de
+            bonne humeur.
+          </p>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-gray-600 transition-colors duration-300 flex flex-col">
+          <div class="text-4xl mb-5">📚</div>
+          <h3 class="text-lg font-bold text-white mb-1 leading-tight">Lecture</h3>
+          <span class="text-blue-500 text-sm font-medium mb-4">Tech, Psychologie, Histoire & Fantasy</span>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Des manuels techniques aux romans de fantasy, en passant par la psychologie et l'histoire. Lire est ma façon
+            de rester curieux et d'explorer des univers très différents les uns des autres.
+          </p>
+        </div>
+
+        <div
+          class="bg-gray-800/40 border border-gray-700/50 p-6 rounded-2xl hover:border-gray-600 transition-colors duration-300 flex flex-col">
+          <div class="text-4xl mb-5">🏋️</div>
+          <h3 class="text-lg font-bold text-white mb-1 leading-tight">Musculation</h3>
+          <span class="text-blue-500 text-sm font-medium mb-4">Entraînement & Bien-être</span>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Je m'entraîne depuis longtemps. C'est ma façon de gérer le stress et la pression du quotidien, un espace où
+            je déconnecte vraiment. La forme physique, c'est juste un bonus agréable.
+          </p>
+        </div>
+
+      </div>
+    </section>
+    <section id="download-cv" class="py-20 px-4 md:px-12 lg:px-24 max-w-5xl mx-auto">
+      <div
+        class="bg-gradient-to-r from-gray-800/60 to-gray-900/60 border border-gray-700/50 rounded-3xl p-10 md:p-14 text-center shadow-2xl relative overflow-hidden group">
+
+        <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        </div>
+
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 relative z-10">Prêt à collaborer ?</h2>
+        <p class="text-gray-400 text-lg mb-8 max-w-2xl mx-auto relative z-10">
+          Consultez mon CV complet pour découvrir en détail mes expériences, mes certifications et les projets
+          techniques que j'ai menés à bien.
+        </p>
+
+        <a href="src/assets/CV_Hamza__Eljarzini.pdf" download="CV_Hamza_Eljarzini_Senior_FullStack.pdf"
+          class="relative z-10 inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-4 px-8 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] hover:-translate-y-1 transition-all duration-300">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+          Télécharger mon CV (PDF)
+        </a>
+      </div>
+    </section>
+    <!-- ===== CONTACT ===== -->
+    <!-- ===== CONTACT ===== -->
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="min-h-screen flex flex-col justify-center items-center px-4 pt-20 pb-12">
+      <div class="w-full max-w-3xl">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 text-center">Contactez-moi</h2>
+        <p class="text-lg text-gray-300 mb-10 text-center">
+          Intéressé par mon profil ? N'hésitez pas à me contacter pour discuter de vos projets ou d'une éventuelle
+          collaboration.
+        </p>
+
+        <!-- Formulaire connecté à Formspree -->
+        <form action="https://formspree.io/f/xgojrbbe" method="POST" class="space-y-6">
+
+          <div class="flex flex-col md:flex-row gap-6">
+            <!-- Nom -->
+            <div class="flex-1 flex flex-col">
+              <label for="name" class="text-sm font-semibold text-white mb-2">Nom</label>
+              <input type="text" id="name" name="name" placeholder="Jean Dupont" required
+                class="bg-[#1A202C] border border-gray-700 text-white rounded-lg p-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-gray-500">
+            </div>
+
+            <!-- Email -->
+            <div class="flex-1 flex flex-col">
+              <label for="email" class="text-sm font-semibold text-white mb-2">Email</label>
+              <input type="email" id="email" name="email" placeholder="jean.dupont@example.com" required
+                class="bg-[#1A202C] border border-gray-700 text-white rounded-lg p-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-gray-500">
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div class="flex flex-col relative">
+            <label for="message" class="text-sm font-semibold text-white mb-2">Message</label>
+            <textarea id="message" name="message" rows="6" placeholder="Message" required maxlength="1000"
+              class="bg-[#1A202C] border border-gray-700 text-white rounded-lg p-3 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition resize-none placeholder-gray-500"></textarea>
+
+            <!-- Compteur de caractères -->
+            <div class="text-right text-sm text-gray-500 mt-2">
+              <span id="char-count">0</span>/1000
+            </div>
+          </div>
+
+          <!-- Bouton Envoyer -->
+          <div class="text-center md:text-left">
+            <button type="submit"
+              class="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition duration-300 shadow-lg shadow-blue-500/20">
+              Envoyer le message
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script>
+    // --- Script pour le bouton Thème (Changement d'icône) ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    themeToggleBtn.addEventListener('click', function() {
+      // Alterne l'affichage entre le Soleil et la Lune
+      darkIcon.classList.toggle('hidden');
+      lightIcon.classList.toggle('hidden');
+ 
+    });
+  </script>
+</body>
+
+</html>
